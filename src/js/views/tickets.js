@@ -5,6 +5,8 @@ class TicketsUI {
         this.container = document.querySelector(".tickets-sections .row");
         this.getCurrencySymbol = currency.getCurrencySymbol.bind(currency);
     }
+
+   
     renderTickets(tickets) {
         this.clearContainer();
         if (!tickets.length) {
@@ -13,8 +15,10 @@ class TicketsUI {
         }
         let fragment = "";
         const currency = this.getCurrencySymbol();
-        tickets.forEach((ticket) => {
-            const template = TicketsUI.ticketTemplate(ticket, currency);
+        tickets.forEach((ticket, i) => {
+            // console.log(i);
+
+            const template = TicketsUI.ticketTemplate(ticket, currency, i);
             fragment += template;
         });
         this.container.insertAdjacentHTML("afterbegin", fragment);
@@ -36,9 +40,9 @@ class TicketsUI {
         </div>
         `;
     }
-    static ticketTemplate(ticket, currency) {
+    static ticketTemplate(ticket, currency, i) {
         return `
-        <div class="col s12 m6">
+        <div class="col s12 m6" data-ticket=${i} data-id=${ticket.ticket_id}>
           <div class="card ticket-card">
             <div class="ticket-airline d-flex align-items-center">
               <img src="${ticket.airline_logo}" class="ticket-airline-img" />
@@ -69,6 +73,7 @@ class TicketsUI {
             <div class="ticket-additional-info">
               <span class="ticket-transfers">Пересадок: ${ticket.transfers}</span>
               <span class="ticket-flight-number">Номер рейса: ${ticket.flight_number}</span>
+              <i class="material-icons star" data-favorites="false">star</i>
             </div>
           </div>
         </div>

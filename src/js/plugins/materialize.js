@@ -25,3 +25,8 @@ M.Autocomplete.init(autocomplete);
 export function getAutocompleteInstance(elem) {
     return M.Autocomplete.getInstance(elem);
 }
+
+let dropdown = document.querySelectorAll('.dropdown-trigger');
+M.Dropdown.init(dropdown,{
+    closeOnClick:false,
+});
